@@ -29,7 +29,7 @@ registerSimpleRouter()
 
 registerBaseRouter()
 
-/*registerErrorRouter()
+registerErrorRouter()
 
 registerExtendRouter()
 
@@ -39,7 +39,7 @@ registerConfigRouter()
 
 registerCancelRouter()
 
-registerMoreRouter()*/
+registerMoreRouter()
 
 app.use(router)
 
