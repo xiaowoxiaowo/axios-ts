@@ -61,7 +61,7 @@ import axios from '../../src/index'
 //   }
 // })
 
-axios({
+/*axios({
   method: 'post',
   url: '/base/post',
   data: {
@@ -98,9 +98,9 @@ axios({
   method: 'post',
   url: '/base/post',
   data: searchParams
-})
+})*/
 
-/*axios({
+axios({
   method: 'post',
   url: '/base/post',
   data: {
@@ -121,4 +121,4 @@ axios({
   }
 }).then((res) => {
   console.log(res)
-})*/
+})

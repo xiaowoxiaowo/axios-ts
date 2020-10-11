@@ -1,0 +1,4 @@
+diff a/src/xhr.ts b/src/xhr.ts	(rejected hunks)
+@@ -10 +10 @@ export default function xhr(config: AxiosRequestConfig): void {
+-  Object.keys(headers).forEach((name) => {
++  Object.keys(headers).forEach(name => {

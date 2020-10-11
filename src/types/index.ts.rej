@@ -1,0 +1,4 @@
+diff a/src/types/index.ts b/src/types/index.ts	(rejected hunks)
+@@ -7 +7 @@ export interface AxiosRequestConfig {
+-  params?: any,
++  params?: any
