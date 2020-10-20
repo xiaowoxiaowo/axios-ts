@@ -12,6 +12,10 @@ export function isPlainObject(val: any): val is Object {
 	return toString.call(val) === '[object Object]'
 }
 
+export function isFormData(val: any): val is FormData {
+	return typeof val !== 'undefined' && val instanceof FormData
+}
+
 export function extend<T, U>(to: T, from: U): T & U {
 	for (const key in from) {
 		// 以+、-、/、()、[]这些字符开头的语句都需要加分号,因为代码压缩合并后非常容易混淆出错
