@@ -11,7 +11,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 			data = null, url, method = 'get',
 			headers, responseType, timeout,
 			cancelToken, withCredentials, xsrfCookieName,
-			xsrfHeaderName, onDownloadProgress, onUploadProgress } = config
+			xsrfHeaderName, onDownloadProgress, onUploadProgress,
+			auth, validateStatus } = config
 
 		const request = new XMLHttpRequest()
 
@@ -90,6 +91,11 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 				}
 			}
 
+			if (auth) {
+				// btoa是把字符串转成base64的方法，可以用atob来解码
+				headers['Authorization'] = 'Basic' + btoa(auth.username + ':' + auth.password)
+			}
+
 			Object.keys(headers).forEach(name => {
 				if (data === null && name.toLowerCase() === 'content-type') {
 					delete headers[name]
@@ -109,7 +115,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 		}
 
 		function handleResponse(response: AxiosResponse): void {
-			if (response.status >= 200 && response.status < 300) {
+			if (!validateStatus || validateStatus(response.status)) {
 				resolve(response)
 			} else {
 				reject(

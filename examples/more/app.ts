@@ -37,6 +37,7 @@ function loadProgressBar() {
 		})
 	}
 
+
 	const setupUpdateProgress = () => {
 		const update = (e: ProgressEvent) => {
 			console.log(e)
