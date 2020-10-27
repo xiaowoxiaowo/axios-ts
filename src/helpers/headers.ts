@@ -1,60 +1,58 @@
-import { Method } from './../types/index';
+import { Method } from './../types/index'
 import { deepMerge, isPlainObject } from './util'
 
 function normalizeHeaderName(headers: any, normalizedName: string): void {
-	if (!headers) return
-	Object.keys(headers).forEach(name => {
-		if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
-			headers[normalizedName] = headers[name]
-			delete headers[name]
-		}
-	})
+  if (!headers) return
+  Object.keys(headers).forEach(name => {
+    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+      headers[normalizedName] = headers[name]
+      delete headers[name]
+    }
+  })
 }
 
 export function processHeaders(headers: any, data: any): any {
-	normalizeHeaderName(headers, 'Content-Type')
+  normalizeHeaderName(headers, 'Content-Type')
 
-	if (isPlainObject(data)) {
-		if (headers && !headers['Content-Type']) {
-			headers['Content-Type'] = 'application/json;charset=utf-8'
-		}
-	}
+  if (isPlainObject(data)) {
+    if (headers && !headers['Content-Type']) {
+      headers['Content-Type'] = 'application/json;charset=utf-8'
+    }
+  }
 
-	return headers
+  return headers
 }
 
 export function parseHeaders(headers: string): any {
-	// obejct.create(null)创建的对象类型是any的
-	let parsed = Object.create(null)
-	if (!headers) {
-		return parsed
-	}
+  // obejct.create(null)创建的对象类型是any的
+  let parsed = Object.create(null)
+  if (!headers) {
+    return parsed
+  }
 
-	headers.split('\r\n').forEach((line) => {
-		let [key, val] = line.split(':')
-		key = key.trim().toLocaleLowerCase()
-		if (!key) return
-		if (val) {
-			val = val.trim()
-		}
-		parsed[key] = val
-	})
+  headers.split('\r\n').forEach(line => {
+    let [key, ...vals] = line.split(':')
+    key = key.trim().toLocaleLowerCase()
+    if (!key) return
+    const val = vals.join(':').trim()
+    parsed[key] = val
+  })
 
-	return parsed
+  return parsed
 }
 
 export function flattenHeaders(headers: any, method: Method): any {
-	if (!headers) {
-		return headers
-	}
+  if (!headers) {
+    return headers
+  }
 
-	headers = deepMerge(headers.common, headers[method], headers)
+  headers = deepMerge(headers.common, headers[method], headers)
 
-	const methodsToDelete = ['delete', 'get', 'head', 'options', 'post', 'put', 'patch', 'common']
+  const methodsToDelete = ['delete', 'get', 'head', 'options', 'post', 'put', 'patch', 'common']
 
-	methodsToDelete.forEach(method => {
-		delete headers[method]
-	})
+  methodsToDelete.forEach(method => {
+    delete headers[method]
+  })
 
-	return headers
+  return headers
 }
