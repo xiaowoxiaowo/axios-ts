@@ -11,7 +11,7 @@ A starter project that makes creating a TypeScript library extremely easy.
 
 ![](https://i.imgur.com/opUmHp0.png)
 
-### Usage123332223224543623230134057
+### Usage1233322232245436232301340576
 
 ```bash
 git clone https://github.com/alexjoverm/typescript-library-starter.git YOURFOLDERNAME
